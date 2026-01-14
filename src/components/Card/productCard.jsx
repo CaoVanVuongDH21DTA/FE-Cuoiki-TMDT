@@ -1,4 +1,3 @@
-import React from "react";
 import "../../assets/css/cardCss.css";
 
 const ProductCard = ({ product }) => {
@@ -7,6 +6,10 @@ const ProductCard = ({ product }) => {
       style: "currency",
       currency: "VND",
     }).format(price);
+
+  const addToCart=(productName)=>{
+    alert(`Đã thêm ${productName} vào giỏ hàng`);
+  }
 
   return (
     <div className="product-card">
@@ -25,7 +28,7 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
 
-      <button className="add-to-cart-btn">
+      <button className="add-to-cart-btn" onClick={()=>addToCart(product.name)}>
         Thêm vào giỏ
       </button>
     </div>

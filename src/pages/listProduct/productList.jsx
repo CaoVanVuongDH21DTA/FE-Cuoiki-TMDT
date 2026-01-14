@@ -1,10 +1,12 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import ProductCard from "../../components/Card/productCard";
 import SidebarFilter from "../../components/SidebarFilter/SidebarFilter";
+import SearchBar from '../../components/SearchBar/SearchBar';
 import productData from "../../data/data.json";
 import "../../assets/css/pageProductListCss.css";
 
 const ProductList = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
     category: [],
     brand: [],
@@ -36,6 +38,8 @@ const ProductList = () => {
 
   const clearFilters = () => {
     setFilters({ category: [], brand: [], priceRange: null });
+    setSearchTerm("");
+    alert("Đã xóa bộ lọc");
   };
 
   const filteredProducts = useMemo(() => {
@@ -53,9 +57,11 @@ const ProductList = () => {
         (p.price >= filters.priceRange.min &&
           p.price <= filters.priceRange.max);
 
-      return categoryMatch && brandMatch && priceMatch;
+      const searchMatch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return categoryMatch && brandMatch && priceMatch && searchMatch;
     });
-  }, [filters]);
+  }, [filters, searchTerm]);
 
   return (
     <div className="page-container">
@@ -72,6 +78,10 @@ const ProductList = () => {
 
       {/* PRODUCT LIST */}
       <main className="right-column">
+        <div style={{ marginBottom: '20px' }}>
+            <SearchBar value={searchTerm} onChange={setSearchTerm} />
+        </div>
+
         <h2 className="section-title">
           Sản phẩm ({filteredProducts.length})
         </h2>
@@ -83,7 +93,13 @@ const ProductList = () => {
             ))
           ) : (
             <div className="no-result">
-              <p>Không tìm thấy sản phẩm phù hợp</p>
+              <p>
+                {
+                  searchTerm 
+                    ? `Không tìm thấy sản phẩm có tên "${searchTerm}"` 
+                    : "Không tìm thấy sản phẩm phù hợp"
+                }
+              </p>
               <button onClick={clearFilters}>Bỏ bộ lọc</button>
             </div>
           )}

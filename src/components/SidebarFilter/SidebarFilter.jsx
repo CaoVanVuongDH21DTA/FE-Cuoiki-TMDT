@@ -1,4 +1,3 @@
-import React from "react";
 import "../../assets/css/sidebarFilterCss.css";
 
 const SidebarFilter = ({ categories, brands, filters, onChange, clearFilters }) => {

@@ -2,6 +2,7 @@
 html {
   /* Dành chỗ sẵn cho thanh cuộn, kể cả khi chưa có scroll */
   scrollbar-gutter: stable;
+  box-sizing: border-box;
 }
 
 /* --- 2. LAYOUT CHÍNH --- */
