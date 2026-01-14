@@ -1,4 +1,3 @@
-import React from 'react';
 import '../../assets/css/searchBarCss.css';
 
 const SearchBar = ({ value, onChange }) => {
